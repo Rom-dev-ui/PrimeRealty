@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Comprehensive real estate services including property valuation, feasibility studies, investment analysis, and development consulting.">
+    <title>PrimeRealty | Full-Service Real Estate Experts</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #f59e0b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --gray-light: #e2e8f0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark);
+            line-height: 1.6;
+            background-color: var(--light);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-item {
+            margin-left: 25px;
+        }
+        
+        .nav-link {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1973&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 0;
+            color: white;
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+        
+        .search-bar {
+            display: flex;
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 50px;
+            overflow: hidden;
+            padding: 5px;
+        }
+        
+        .search-input {
+            flex: 1;
+            border: none;
+            padding: 15px 20px;
+            outline: none;
+            font-size: 1rem;
+        }
+        
+        .search-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        
+        .search-btn:hover {
+            background: var(--primary-dark);
+        }
+        
+        /* Services Section */
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .service-icon {
+            background: var(--primary);
+            color: white;
+            font-size: 2rem;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .service-content {
+            padding: 25px;
+        }
+        
+        .service-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .service-desc {
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+        
+        .service-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+        
+        .service-link i {
+            margin-left: 5px;
+            transition: margin-left 0.3s;
+        }
+        
+        .service-link:hover i {
+            margin-left: 10px;
+        }
+        
+        /* Featured Properties */
+        .properties {
+            background: var(--gray-light);
+        }
+        
+        .properties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .property-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .property-img {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        .property-content {
+            padding: 20px;
+        }
+        
+        .property-price {
+            color: var(--primary);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .property-address {
+            color: var(--gray);
+            margin-bottom: 15px;
+        }
+        
+        .property-features {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid var(--gray-light);
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+        
+        .feature {
+            display: flex;
+            align-items: center;
+            color: var(--gray);
+        }
+        
+        .feature i {
+            margin-right: 5px;
+            color: var(--primary);
+        }
+        
+        /* Evaluation Section */
+        .evaluation {
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            color: white;
+            text-align: center;
+            padding: 80px 0;
+        }
+        
+        .evaluation-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        
+        .evaluation-desc {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            font-size: 1.1rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--secondary);
+            color: var(--dark);
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-brand h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links h4 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-links h4::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--primary);
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: var(--gray-light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: background 0.3s;
+        }
+        
+        .social-links a:hover {
+            background: var(--primary);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                flex-direction: column;
+                background: white;
+                width: 100%;
+                height: calc(100vh - 70px);
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                transition: left 0.3s;
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .nav-item {
+                margin: 15px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .search-bar {
+                flex-direction: column;
+                border-radius: 10px;
+            }
+            
+            .search-input {
+                border-radius: 10px 10px 0 0;
+            }
+            
+            .search-btn {
+                border-radius: 0 0 10px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <i class="fas fa-home"></i>
+                PrimeRealty
+            </a>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Properties</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Services</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Agents</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1 class="hero-title">Find Your Dream Property With Ease</h1>
+            <p class="hero-subtitle">Discover the perfect home, investment property, or commercial space with our comprehensive real estate services.</p>
+            
+            <div class="search-bar">
+                <input type="text" class="search-input" placeholder="Enter location, property type, or keyword...">
+                <button class="search-btn">Search</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3 class="service-title">Advisory & Brokerage</h3>
+                        <p class="service-desc">Residential and commercial sales, leasing, land acquisition with expert representation.</p>
+                        <a href="#" class="service-link">Learn more <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3 class="service-title">Valuation & Evaluation</h3>
+                        <p class="service-desc">Property valuation, feasibility studies, highest & best use analysis, portfolio evaluation.</p>
+                        <a href="#" class="service-link">Learn more <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-hard-hat"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3 class="service-title">Development & Project Services</h3>
+                        <p class="service-desc">Site selection, due diligence, entitlement acceleration, project management.</p>
+                        <a href="#" class="service-link">Learn more <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3 class="service-title">Investment & Asset Management</h3>
+                        <p class="service-desc">Acquisition evaluation, disposition strategy, asset optimization, execution monitoring.</p>
+                        <a href="#" class="service-link">Learn more <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Properties -->
+    <section class="section properties">
+        <div class="container">
+            <h2 class="section-title">Featured Properties</h2>
+            
+            <div class="properties-grid">
+                <div class="property-card">
+                    <img src="https://images.unsplash.com/photo-1574362848149-11496d93a7c7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1084&q=80" alt="Luxury Villa" class="property-img">
+                    <div class="property-content">
+                        <div class="property-price">$1,250,000</div>
+                        <h3>Luxury Waterfront Villa</h3>
+                        <p class="property-address">123 Coastal Drive, Miami, FL</p>
+                        <div class="property-features">
+                            <div class="feature">
+                                <i class="fas fa-bed"></i> 4 Beds
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-bath"></i> 3 Baths
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-ruler-combined"></i> 3,200 sq.ft.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="property-card">
+                    <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="Modern Apartment" class="property-img">
+                    <div class="property-content">
+                        <div class="property-price">$685,000</div>
+                        <h3>Modern Downtown Apartment</h3>
+                        <p class="property-address">456 Urban Lane, New York, NY</p>
+                        <div class="property-features">
+                            <div class="feature">
+                                <i class="fas fa-bed"></i> 3 Beds
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-bath"></i> 2 Baths
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-ruler-combined"></i> 1,800 sq.ft.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="property-card">
+                    <img src="https://images.unsplash.com/photo-1448630360428-65456885c650?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1167&q=80" alt="Countryside Estate" class="property-img">
+                    <div class="property-content">
+                        <div class="property-price">$2,350,000</div>
+                        <h3>Countryside Estate</h3>
+                        <p class="property-address">789 Hillside Road, Austin, TX</p>
+                        <div class="property-features">
+                            <div class="feature">
+                                <i class="fas fa-bed"></i> 5 Beds
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-bath"></i> 4 Baths
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-ruler-combined"></i> 4,500 sq.ft.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Evaluation Section -->
+    <section class="evaluation">
+        <div class="container">
+            <h2 class="evaluation-title">Professional Property Evaluation</h2>
+            <p class="evaluation-desc">Get accurate property valuations, feasibility studies, and investment analysis from our team of experts. Make informed decisions with our comprehensive evaluation services.</p>
+            <a href="#" class="btn">Request Evaluation</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>PrimeRealty</h3>
+                    <p>Comprehensive real estate services with a focus on accurate valuation and strategic consulting.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#">Advisory & Brokerage</a></li>
+                        <li><a href="#">Valuation & Evaluation</a></li>
+                        <li><a href="#">Development & Project Services</a></li>
+                        <li><a href="#">Investment & Asset Management</a></li>
+                        <li><a href="#">Specialized Services</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Our Team</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">News & Insights</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Real Estate Ave, New York, NY</li>
+                        <li><i class="fas fa-phone"></i> (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> info@primerealty.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 PrimeRealty. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navMenu.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+    </script>
+</body>
+</html>
