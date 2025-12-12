@@ -1,0 +1,2653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact PrimeRealty for all your real estate needs. Schedule consultations, request valuations, or visit our offices.">
+    <title>Contact Us | PrimeRealty | Get in Touch With Real Estate Experts</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        /* ===== CSS VARIABLES & RESET ===== */
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #dbeafe;
+            --secondary: #f59e0b;
+            --secondary-dark: #d97706;
+            --secondary-light: #fef3c7;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --gray-light: #e2e8f0;
+            --gray-lighter: #f1f5f9;
+            --success: #10b981;
+            --danger: #ef4444;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.12);
+            --radius: 12px;
+            --radius-lg: 20px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark);
+            line-height: 1.7;
+            background-color: var(--light);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* ===== HEADER ===== */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        .nav-link {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+            transition: var(--transition);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+        
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary);
+        }
+        
+        .cta-button {
+            background: var(--primary);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+        
+        .cta-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+        }
+        
+        /* ===== PAGE HERO ===== */
+        .page-hero {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.9) 0%, rgba(29, 78, 216, 0.95) 100%), 
+                        url('https://images.unsplash.com/photo-1558036117-15e82a2c9a9a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 0 80px;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to bottom, transparent, var(--light));
+            z-index: 1;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-breadcrumb {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+        }
+        
+        .breadcrumb-link {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .breadcrumb-link:hover {
+            color: white;
+        }
+        
+        .breadcrumb-separator {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .page-hero h1 {
+            font-size: 3.2rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+        
+        .page-hero p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: rgba(255, 255, 255, 0.95);
+        }
+        
+        .hero-contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .hero-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px 25px;
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+        
+        .hero-contact-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+        
+        .contact-icon {
+            font-size: 1.5rem;
+            color: var(--secondary);
+        }
+        
+        .contact-details h4 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+            opacity: 0.9;
+        }
+        
+        .contact-details p {
+            font-size: 1.1rem;
+            margin: 0;
+            font-weight: 600;
+        }
+        
+        /* ===== SECTIONS ===== */
+        .section {
+            padding: 100px 0;
+            position: relative;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            position: relative;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 60px;
+            font-size: 1.1rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+        
+        /* ===== CONTACT GRID ===== */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+        
+        .contact-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .contact-icon-large {
+            width: 80px;
+            height: 80px;
+            background: var(--primary-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 25px;
+        }
+        
+        .contact-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .contact-card p {
+            color: var(--gray);
+            margin-bottom: 25px;
+            flex-grow: 1;
+        }
+        
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .contact-link:hover {
+            color: var(--primary-dark);
+            gap: 15px;
+        }
+        
+        /* ===== CONTACT FORM ===== */
+        .contact-form-section {
+            background: var(--light);
+        }
+        
+        .form-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .form-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .form-tab {
+            background: white;
+            border: 2px solid var(--gray-light);
+            padding: 16px 32px;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .form-tab:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        
+        .form-tab.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+        
+        .form-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .form-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .contact-form-wrapper {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 50px;
+            box-shadow: var(--shadow);
+        }
+        
+        .form-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .form-header h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .form-header p {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .form-label .required {
+            color: var(--danger);
+        }
+        
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid var(--gray-light);
+            border-radius: var(--radius);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+            background: white;
+        }
+        
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+        
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .form-checkbox {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+        
+        .checkbox-input {
+            margin-top: 5px;
+            accent-color: var(--primary);
+        }
+        
+        .checkbox-label {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+        
+        .checkbox-label a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .checkbox-label a:hover {
+            text-decoration: underline;
+        }
+        
+        .form-submit {
+            background: var(--primary);
+            color: white;
+            padding: 18px 40px;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .form-submit:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        /* ===== OFFICES SECTION ===== */
+        .offices-section {
+            background: white;
+        }
+        
+        .offices-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .office-card {
+            background: var(--light);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .office-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .office-img {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        .office-content {
+            padding: 30px;
+        }
+        
+        .office-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        
+        .office-title {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+        
+        .office-type {
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .office-details {
+            margin-bottom: 25px;
+        }
+        
+        .office-detail {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 15px;
+            color: var(--gray);
+        }
+        
+        .office-detail i {
+            color: var(--primary);
+            margin-top: 3px;
+            min-width: 20px;
+        }
+        
+        .office-hours {
+            background: white;
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .office-hours h4 {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .hour-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--gray-lighter);
+        }
+        
+        .hour-row:last-child {
+            border-bottom: none;
+        }
+        
+        .day {
+            color: var(--dark);
+            font-weight: 500;
+        }
+        
+        .time {
+            color: var(--gray);
+        }
+        
+        /* ===== MAP SECTION ===== */
+        .map-section {
+            background: var(--light);
+            padding-top: 0;
+        }
+        
+        .map-container {
+            height: 500px;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+        
+        #contactMap {
+            height: 100%;
+            width: 100%;
+        }
+        
+        .map-overlay {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: white;
+            border-radius: var(--radius);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            max-width: 300px;
+            z-index: 1000;
+        }
+        
+        .map-overlay h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .office-select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--gray-light);
+            border-radius: var(--radius);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+        
+        /* ===== FAQ SECTION ===== */
+        .faq-section {
+            background: white;
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            margin-bottom: 15px;
+            border: 1px solid var(--gray-light);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            padding: 25px;
+            background: var(--light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .faq-question:hover {
+            background: var(--gray-lighter);
+        }
+        
+        .faq-question h4 {
+            font-size: 1.2rem;
+            color: var(--dark);
+            margin: 0;
+        }
+        
+        .faq-toggle {
+            color: var(--primary);
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+        
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
+        
+        .faq-answer {
+            padding: 0 25px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 25px;
+            max-height: 500px;
+        }
+        
+        /* ===== CTA SECTION ===== */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            text-align: center;
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .cta-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .cta-text {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .cta-button-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .cta-button-secondary:hover {
+            background: white;
+            color: var(--primary);
+        }
+        
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 80px 0 30px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-brand h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .footer-links h4 {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 12px;
+        }
+        
+        .footer-links h4::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--primary);
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+        
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+        }
+        
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1200px) {
+            .contact-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .offices-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .map-overlay {
+                position: relative;
+                top: 0;
+                right: 0;
+                margin-bottom: 20px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                flex-direction: column;
+                background: white;
+                width: 100%;
+                height: calc(100vh - 70px);
+                padding: 30px;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+                transition: var(--transition);
+                z-index: 999;
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .page-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .offices-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-form-wrapper {
+                padding: 30px;
+            }
+            
+            .form-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .form-tab {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .cta-button {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .hero-contact-info {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+            
+            .hero-contact-item {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .section {
+                padding: 70px 0;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-form-wrapper {
+                padding: 20px;
+            }
+        }
+        
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        .stagger-delay-1 { animation-delay: 0.1s; }
+        .stagger-delay-2 { animation-delay: 0.2s; }
+        .stagger-delay-3 { animation-delay: 0.3s; }
+        .stagger-delay-4 { animation-delay: 0.4s; }
+        
+        /* ===== FORM VALIDATION ===== */
+        .form-input.error, .form-select.error, .form-textarea.error {
+            border-color: var(--danger);
+        }
+        
+        .error-message {
+            color: var(--danger);
+            font-size: 0.9rem;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .error-message.show {
+            display: block;
+        }
+        
+        .success-message {
+            background: var(--success);
+            color: white;
+            padding: 20px;
+            border-radius: var(--radius);
+            text-align: center;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .success-message.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        /* ===== LOADING SPINNER ===== */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* ===== APPOINTMENT CALENDAR ===== */
+        .calendar-container {
+            margin-bottom: 30px;
+        }
+        
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .calendar-nav {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .calendar-nav-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--gray-lighter);
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .calendar-nav-btn:hover {
+            background: var(--gray-light);
+        }
+        
+        .calendar-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .calendar-day-header {
+            text-align: center;
+            font-weight: 600;
+            color: var(--gray);
+            padding: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .calendar-day {
+            text-align: center;
+            padding: 15px 10px;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+        
+        .calendar-day:hover {
+            background: var(--gray-lighter);
+        }
+        
+        .calendar-day.selected {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .calendar-day.disabled {
+            color: var(--gray-light);
+            cursor: not-allowed;
+        }
+        
+        .calendar-day.disabled:hover {
+            background: transparent;
+        }
+        
+        .calendar-day.today {
+            border-color: var(--secondary);
+        }
+        
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .time-slot {
+            padding: 12px;
+            text-align: center;
+            background: var(--gray-lighter);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+        
+        .time-slot:hover {
+            background: var(--gray-light);
+        }
+        
+        .time-slot.selected {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .time-slot.booked {
+            background: var(--danger);
+            color: white;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-home"></i>
+                PrimeRealty
+            </a>
+            
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="properties.html" class="nav-link">Properties</a></li>
+                <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
+                <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="agents.html" class="nav-link">Agents</a></li>
+                <li class="nav-item"><a href="contact.html" class="nav-link active">Contact</a></li>
+                <li class="nav-item"><a href="valuation-form.html" class="cta-button">Free Valuation</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container hero-content">
+            <div class="hero-breadcrumb">
+                <a href="index.html" class="breadcrumb-link">Home</a>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-link active">Contact Us</span>
+            </div>
+            <h1>Get in Touch With Our Real Estate Experts</h1>
+            <p>We're here to help with all your real estate needs. Contact us today for personalized service and expert guidance.</p>
+            
+            <div class="hero-contact-info">
+                <div class="hero-contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h4>Call Us Today</h4>
+                        <p>(555) 123-4567</p>
+                    </div>
+                </div>
+                
+                <div class="hero-contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h4>Email Us</h4>
+                        <p>info@primerealty.com</p>
+                    </div>
+                </div>
+                
+                <div class="hero-contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h4>Business Hours</h4>
+                        <p>Mon-Fri: 8AM-7PM</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Methods -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title fade-in">How Can We Help You?</h2>
+            <p class="section-subtitle fade-in stagger-delay-1">Choose the most convenient way to get in touch with our team</p>
+            
+            <div class="contact-grid">
+                <div class="contact-card fade-in">
+                    <div class="contact-icon-large">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <h3>Call Us Directly</h3>
+                    <p>Speak with one of our real estate experts for immediate assistance and personalized guidance.</p>
+                    <a href="tel:+15551234567" class="contact-link">
+                        <i class="fas fa-phone"></i> (555) 123-4567
+                    </a>
+                </div>
+                
+                <div class="contact-card fade-in stagger-delay-1">
+                    <div class="contact-icon-large">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>Send an Email</h3>
+                    <p>Prefer to write? Send us a detailed message and we'll respond within 24 hours.</p>
+                    <a href="mailto:info@primerealty.com" class="contact-link">
+                        <i class="fas fa-envelope"></i> info@primerealty.com
+                    </a>
+                </div>
+                
+                <div class="contact-card fade-in stagger-delay-2">
+                    <div class="contact-icon-large">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <h3>Schedule Consultation</h3>
+                    <p>Book a one-on-one consultation with our experts at your convenience.</p>
+                    <a href="#appointment" class="contact-link" onclick="switchTab('appointment')">
+                        <i class="fas fa-calendar"></i> Book Appointment
+                    </a>
+                </div>
+                
+                <div class="contact-card fade-in stagger-delay-3">
+                    <div class="contact-icon-large">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3>Visit Our Office</h3>
+                    <p>Drop by any of our conveniently located offices for face-to-face assistance.</p>
+                    <a href="#offices" class="contact-link">
+                        <i class="fas fa-directions"></i> View Locations
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="section contact-form-section" id="contactForm">
+        <div class="container">
+            <h2 class="section-title fade-in">Send Us a Message</h2>
+            <p class="section-subtitle fade-in stagger-delay-1">Fill out the form below and we'll get back to you as soon as possible</p>
+            
+            <div class="form-container">
+                <div class="form-tabs">
+                    <button class="form-tab active" data-tab="general">
+                        <i class="fas fa-envelope"></i>
+                        General Inquiry
+                    </button>
+                    <button class="form-tab" data-tab="valuation">
+                        <i class="fas fa-chart-line"></i>
+                        Property Valuation
+                    </button>
+                    <button class="form-tab" data-tab="appointment">
+                        <i class="fas fa-calendar-check"></i>
+                        Schedule Appointment
+                    </button>
+                    <button class="form-tab" data-tab="career">
+                        <i class="fas fa-briefcase"></i>
+                        Career Inquiry
+                    </button>
+                </div>
+                
+                <!-- General Inquiry Form -->
+                <div class="form-content active" id="generalForm">
+                    <div class="contact-form-wrapper">
+                        <div class="form-header">
+                            <h3>General Inquiry</h3>
+                            <p>Have a question about our services or need assistance? Send us a message and we'll respond promptly.</p>
+                        </div>
+                        
+                        <form id="generalInquiryForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Full Name <span class="required">*</span></label>
+                                    <input type="text" class="form-input" name="name" placeholder="Enter your full name" required>
+                                    <div class="error-message" id="nameError">Please enter your name</div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Email Address <span class="required">*</span></label>
+                                    <input type="email" class="form-input" name="email" placeholder="Enter your email address" required>
+                                    <div class="error-message" id="emailError">Please enter a valid email address</div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Phone Number</label>
+                                    <input type="tel" class="form-input" name="phone" placeholder="Enter your phone number">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Subject <span class="required">*</span></label>
+                                    <select class="form-select" name="subject" required>
+                                        <option value="">Select a subject</option>
+                                        <option value="buying">Buying a Property</option>
+                                        <option value="selling">Selling a Property</option>
+                                        <option value="renting">Renting a Property</option>
+                                        <option value="valuation">Property Valuation</option>
+                                        <option value="investment">Investment Advice</option>
+                                        <option value="other">Other Inquiry</option>
+                                    </select>
+                                    <div class="error-message" id="subjectError">Please select a subject</div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Message <span class="required">*</span></label>
+                                <textarea class="form-textarea" name="message" placeholder="How can we help you?" required></textarea>
+                                <div class="error-message" id="messageError">Please enter your message</div>
+                            </div>
+                            
+                            <div class="form-checkbox">
+                                <input type="checkbox" class="checkbox-input" name="newsletter" id="newsletter1">
+                                <label class="checkbox-label" for="newsletter1">
+                                    I'd like to receive updates, market insights, and promotional offers from PrimeRealty.
+                                </label>
+                            </div>
+                            
+                            <div class="form-checkbox">
+                                <input type="checkbox" class="checkbox-input" name="agree" id="agree1" required>
+                                <label class="checkbox-label" for="agree1">
+                                    I agree to the <a href="privacy.html">Privacy Policy</a> and <a href="terms.html">Terms of Service</a>.
+                                </label>
+                                <div class="error-message" id="agreeError1">You must agree to the terms</div>
+                            </div>
+                            
+                            <button type="submit" class="form-submit" id="generalSubmit">
+                                <span id="generalSubmitText">Send Message</span>
+                                <div class="spinner" id="generalSpinner" style="display: none;"></div>
+                            </button>
+                            
+                            <div class="success-message" id="generalSuccess">
+                                <i class="fas fa-check-circle"></i> Thank you! Your message has been sent. We'll respond within 24 hours.
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Valuation Request Form -->
+                <div class="form-content" id="valuationForm">
+                    <div class="contact-form-wrapper">
+                        <div class="form-header">
+                            <h3>Free Property Valuation</h3>
+                            <p>Request a free, no-obligation valuation of your property. Our experts will provide an accurate market assessment.</p>
+                        </div>
+                        
+                        <form id="valuationRequestForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Property Owner <span class="required">*</span></label>
+                                    <input type="text" class="form-input" name="owner" placeholder="Property owner's name" required>
+                                    <div class="error-message" id="ownerError">Please enter the property owner's name</div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Email Address <span class="required">*</span></label>
+                                    <input type="email" class="form-input" name="valuationEmail" placeholder="Enter your email address" required>
+                                    <div class="error-message" id="valuationEmailError">Please enter a valid email address</div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Phone Number <span class="required">*</span></label>
+                                    <input type="tel" class="form-input" name="valuationPhone" placeholder="Enter your phone number" required>
+                                    <div class="error-message" id="valuationPhoneError">Please enter your phone number</div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Property Type <span class="required">*</span></label>
+                                    <select class="form-select" name="propertyType" required>
+                                        <option value="">Select property type</option>
+                                        <option value="house">House</option>
+                                        <option value="apartment">Apartment/Condo</option>
+                                        <option value="townhouse">Townhouse</option>
+                                        <option value="commercial">Commercial Property</option>
+                                        <option value="land">Land/Plot</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                    <div class="error-message" id="propertyTypeError">Please select property type</div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Property Address <span class="required">*</span></label>
+                                    <input type="text" class="form-input" name="address" placeholder="Full property address" required>
+                                    <div class="error-message" id="addressError">Please enter the property address</div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Approximate Size (sq ft)</label>
+                                    <input type="number" class="form-input" name="size" placeholder="Square footage">
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Number of Bedrooms</label>
+                                    <input type="number" class="form-input" name="bedrooms" placeholder="e.g., 3" min="0">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Number of Bathrooms</label>
+                                    <input type="number" class="form-input" name="bathrooms" placeholder="e.g., 2" min="0" step="0.5">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Additional Information</label>
+                                <textarea class="form-textarea" name="valuationMessage" placeholder="Any additional details about the property"></textarea>
+                            </div>
+                            
+                            <div class="form-checkbox">
+                                <input type="checkbox" class="checkbox-input" name="valuationAgree" id="valuationAgree" required>
+                                <label class="checkbox-label" for="valuationAgree">
+                                    I agree to the <a href="privacy.html">Privacy Policy</a> and authorize PrimeRealty to contact me regarding property valuation.
+                                </label>
+                                <div class="error-message" id="valuationAgreeError">You must agree to the terms</div>
+                            </div>
+                            
+                            <button type="submit" class="form-submit" id="valuationSubmit">
+                                <span id="valuationSubmitText">Request Free Valuation</span>
+                                <div class="spinner" id="valuationSpinner" style="display: none;"></div>
+                            </button>
+                            
+                            <div class="success-message" id="valuationSuccess">
+                                <i class="fas fa-check-circle"></i> Thank you! Your valuation request has been submitted. Our expert will contact you within 48 hours.
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Appointment Booking Form -->
+                <div class="form-content" id="appointmentForm">
+                    <div class="contact-form-wrapper">
+                        <div class="form-header">
+                            <h3>Schedule an Appointment</h3>
+                            <p>Book a consultation with one of our real estate experts at a time that works for you.</p>
+                        </div>
+                        
+                        <form id="appointmentBookingForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Your Name <span class="required">*</span></label>
+                                    <input type="text" class="form-input" name="appointmentName" placeholder="Enter your full name" required>
+                                    <div class="error-message" id="appointmentNameError">Please enter your name</div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Email Address <span class="required">*</span></label>
+                                    <input type="email" class="form-input" name="appointmentEmail" placeholder="Enter your email address" required>
+                                    <div class="error-message" id="appointmentEmailError">Please enter a valid email address</div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Phone Number <span class="required">*</span></label>
+                                    <input type="tel" class="form-input" name="appointmentPhone" placeholder="Enter your phone number" required>
+                                    <div class="error-message" id="appointmentPhoneError">Please enter your phone number</div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Preferred Agent</label>
+                                    <select class="form-select" name="preferredAgent">
+                                        <option value="">Any Available Agent</option>
+                                        <option value="sarah">Sarah Johnson</option>
+                                        <option value="michael">Michael Chen</option>
+                                        <option value="elena">Elena Rodriguez</option>
+                                        <option value="david">David Wilson</option>
+                                        <option value="jessica">Jessica Lee</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Meeting Purpose <span class="required">*</span></label>
+                                <select class="form-select" name="meetingPurpose" required>
+                                    <option value="">Select meeting purpose</option>
+                                    <option value="buying">Buying a Property</option>
+                                    <option value="selling">Selling a Property</option>
+                                    <option value="valuation">Property Valuation</option>
+                                    <option value="investment">Investment Consultation</option>
+                                    <option value="general">General Consultation</option>
+                                </select>
+                                <div class="error-message" id="meetingPurposeError">Please select meeting purpose</div>
+                            </div>
+                            
+                            <div class="calendar-container">
+                                <div class="calendar-header">
+                                    <h3 class="calendar-title" id="calendarTitle">June 2024</h3>
+                                    <div class="calendar-nav">
+                                        <button type="button" class="calendar-nav-btn" id="prevMonth">
+                                            <i class="fas fa-chevron-left"></i>
+                                        </button>
+                                        <button type="button" class="calendar-nav-btn" id="nextMonth">
+                                            <i class="fas fa-chevron-right"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="calendar-grid" id="calendarGrid">
+                                    <!-- Calendar will be generated here -->
+                                </div>
+                                
+                                <input type="hidden" name="selectedDate" id="selectedDate" required>
+                                <div class="error-message" id="dateError">Please select a date</div>
+                                
+                                <div id="timeSlotsContainer" style="display: none;">
+                                    <h4 style="margin-bottom: 15px;">Available Time Slots</h4>
+                                    <div class="time-slots" id="timeSlots">
+                                        <!-- Time slots will be generated here -->
+                                    </div>
+                                    <input type="hidden" name="selectedTime" id="selectedTime" required>
+                                    <div class="error-message" id="timeError">Please select a time slot</div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Additional Notes</label>
+                                <textarea class="form-textarea" name="appointmentNotes" placeholder="Any specific questions or requirements for the meeting"></textarea>
+                            </div>
+                            
+                            <div class="form-checkbox">
+                                <input type="checkbox" class="checkbox-input" name="appointmentAgree" id="appointmentAgree" required>
+                                <label class="checkbox-label" for="appointmentAgree">
+                                    I agree to the <a href="privacy.html">Privacy Policy</a> and confirm that I want to schedule this appointment.
+                                </label>
+                                <div class="error-message" id="appointmentAgreeError">You must agree to the terms</div>
+                            </div>
+                            
+                            <button type="submit" class="form-submit" id="appointmentSubmit">
+                                <span id="appointmentSubmitText">Schedule Appointment</span>
+                                <div class="spinner" id="appointmentSpinner" style="display: none;"></div>
+                            </button>
+                            
+                            <div class="success-message" id="appointmentSuccess">
+                                <i class="fas fa-check-circle"></i> Your appointment has been scheduled! A confirmation email with details has been sent to you.
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Career Inquiry Form -->
+                <div class="form-content" id="careerForm">
+                    <div class="contact-form-wrapper">
+                        <div class="form-header">
+                            <h3>Career Opportunities</h3>
+                            <p>Interested in joining our team? Tell us about yourself and we'll get in touch about potential opportunities.</p>
+                        </div>
+                        
+                        <form id="careerInquiryForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Full Name <span class="required">*</span></label>
+                                    <input type="text" class="form-input" name="careerName" placeholder="Enter your full name" required>
+                                    <div class="error-message" id="careerNameError">Please enter your name</div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Email Address <span class="required">*</span></label>
+                                    <input type="email" class="form-input" name="careerEmail" placeholder="Enter your email address" required>
+                                    <div class="error-message" id="careerEmailError">Please enter a valid email address</div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Phone Number <span class="required">*</span></label>
+                                    <input type="tel" class="form-input" name="careerPhone" placeholder="Enter your phone number" required>
+                                    <div class="error-message" id="careerPhoneError">Please enter your phone number</div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Position of Interest <span class="required">*</span></label>
+                                    <select class="form-select" name="position" required>
+                                        <option value="">Select position</option>
+                                        <option value="agent">Real Estate Agent</option>
+                                        <option value="broker">Real Estate Broker</option>
+                                        <option value="appraiser">Property Appraiser</option>
+                                        <option value="manager">Property Manager</option>
+                                        <option value="admin">Administrative Staff</option>
+                                        <option value="marketing">Marketing Specialist</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                    <div class="error-message" id="positionError">Please select a position</div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Current Experience</label>
+                                <select class="form-select" name="experience">
+                                    <option value="">Select experience level</option>
+                                    <option value="none">No Experience (New to Industry)</option>
+                                    <option value="junior">1-3 Years Experience</option>
+                                    <option value="mid">3-5 Years Experience</option>
+                                    <option value="senior">5+ Years Experience</option>
+                                    <option value="expert">10+ Years Experience</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">LinkedIn Profile URL</label>
+                                <input type="url" class="form-input" name="linkedin" placeholder="https://linkedin.com/in/yourprofile">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Cover Letter/Message</label>
+                                <textarea class="form-textarea" name="careerMessage" placeholder="Tell us about yourself and why you're interested in joining our team"></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Resume/CV Upload</label>
+                                <input type="file" class="form-input" name="resume" accept=".pdf,.doc,.docx">
+                                <small style="color: var(--gray); display: block; margin-top: 5px;">Accepted formats: PDF, DOC, DOCX (Max 5MB)</small>
+                            </div>
+                            
+                            <div class="form-checkbox">
+                                <input type="checkbox" class="checkbox-input" name="careerAgree" id="careerAgree" required>
+                                <label class="checkbox-label" for="careerAgree">
+                                    I agree to the <a href="privacy.html">Privacy Policy</a> and confirm that the information provided is accurate.
+                                </label>
+                                <div class="error-message" id="careerAgreeError">You must agree to the terms</div>
+                            </div>
+                            
+                            <button type="submit" class="form-submit" id="careerSubmit">
+                                <span id="careerSubmitText">Submit Application</span>
+                                <div class="spinner" id="careerSpinner" style="display: none;"></div>
+                            </button>
+                            
+                            <div class="success-message" id="careerSuccess">
+                                <i class="fas fa-check-circle"></i> Thank you for your interest! Our HR team will review your application and contact you if there's a match.
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Offices Section -->
+    <section class="section offices-section" id="offices">
+        <div class="container">
+            <h2 class="section-title fade-in">Our Office Locations</h2>
+            <p class="section-subtitle fade-in stagger-delay-1">Visit us at any of our conveniently located offices</p>
+            
+            <div class="offices-grid">
+                <div class="office-card fade-in">
+                    <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="New York Office" class="office-img">
+                    <div class="office-content">
+                        <div class="office-header">
+                            <div>
+                                <h3 class="office-title">New York Headquarters</h3>
+                                <p style="color: var(--gray);">Financial District</p>
+                            </div>
+                            <span class="office-type">Head Office</span>
+                        </div>
+                        
+                        <div class="office-details">
+                            <div class="office-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>123 Real Estate Ave, New York, NY 10001</span>
+                            </div>
+                            <div class="office-detail">
+                                <i class="fas fa-phone"></i>
+                                <span>(555) 123-4567</span>
+                            </div>
+                            <div class="office-detail">
+                                <i class="fas fa-envelope"></i>
+                                <span>nyc@primerealty.com</span>
+                            </div>
+                        </div>
+                        
+                        <div class="office-hours">
+                            <h4><i class="fas fa-clock"></i> Business Hours</h4>
+                            <div class="hour-row">
+                                <span class="day">Monday - Friday</span>
+                                <span class="time">8:00 AM - 7:00 PM</span>
+                            </div>
+                            <div class="hour-row">
+                                <span class="day">Saturday</span>
+                                <span class="time">9:00 AM - 5:00 PM</span>
+                            </div>
+                            <div class="hour-row">
+                                <span class="day">Sunday</span>
+                                <span class="time">By Appointment Only</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="office-card fade-in stagger-delay-1">
+                    <img src="https://images.unsplash.com/photo-1558036117-15e82a2c9a9a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Miami Office" class="office-img">
+                    <div class="office-content">
+                        <div class="office-header">
+                            <div>
+                                <h3 class="office-title">Miami Office</h3>
+                                <p style="color: var(--gray);">Brickell Financial District</p>
+                            </div>
+                            <span class="office-type">Luxury Division</span>
+                        </div>
+                        
+                        <div class="office-details">
+                            <div class="office-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>456 Ocean Drive, Miami, FL 33131</span>
+                            </div>
+                            <div class="office-detail">
+                                <i class="fas fa-phone"></i>
+                                <span>(555) 123-4568</span>
+                            </div>
+                            <div class="office-detail">
+                                <i class="fas fa-envelope"></i>
+                                <span>miami@primerealty.com</span>
+                            </div>
+                        </div>
+                        
+                        <div class="office-hours">
+                            <h4><i class="fas fa-clock"></i> Business Hours</h4>
+                            <div class="hour-row">
+                                <span class="day">Monday - Friday</span>
+                                <span class="time">9:00 AM - 6:00 PM</span>
+                            </div>
+                            <div class="hour-row">
+                                <span class="day">Saturday</span>
+                                <span class="time">10:00 AM - 4:00 PM</span>
+                            </div>
+                            <div class="hour-row">
+                                <span class="day">Sunday</span>
+                                <span class="time">Closed</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="office-card fade-in stagger-delay-2">
+                    <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Los Angeles Office" class="office-img">
+                    <div class="office-content">
+                        <div class="office-header">
+                            <div>
+                                <h3 class="office-title">Los Angeles Office</h3>
+                                <p style="color: var(--gray);">Beverly Hills</p>
+                            </div>
+                            <span class="office-type">West Coast HQ</span>
+                        </div>
+                        
+                        <div class="office-details">
+                            <div class="office-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>789 Sunset Blvd, Los Angeles, CA 90069</span>
+                            </div>
+                            <div class="office-detail">
+                                <i class="fas fa-phone"></i>
+                                <span>(555) 123-4569</span>
+                            </div>
+                            <div class="office-detail">
+                                <i class="fas fa-envelope"></i>
+                                <span>la@primerealty.com</span>
+                            </div>
+                        </div>
+                        
+                        <div class="office-hours">
+                            <h4><i class="fas fa-clock"></i> Business Hours</h4>
+                            <div class="hour-row">
+                                <span class="day">Monday - Friday</span>
+                                <span class="time">8:30 AM - 6:30 PM</span>
+                            </div>
+                            <div class="hour-row">
+                                <span class="day">Saturday</span>
+                                <span class="time">9:00 AM - 3:00 PM</span>
+                            </div>
+                            <div class="hour-row">
+                                <span class="day">Sunday</span>
+                                <span class="time">Closed</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="section map-section">
+        <div class="container">
+            <div class="map-container">
+                <div id="contactMap"></div>
+                <div class="map-overlay">
+                    <h3>Find Our Nearest Office</h3>
+                    <select class="office-select" id="officeSelect">
+                        <option value="new-york">New York Headquarters</option>
+                        <option value="miami">Miami Office</option>
+                        <option value="los-angeles">Los Angeles Office</option>
+                        <option value="chicago">Chicago Office</option>
+                        <option value="boston">Boston Office</option>
+                    </select>
+                    <button class="cta-button" id="getDirections" style="width: 100%;">
+                        <i class="fas fa-directions"></i> Get Directions
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section faq-section">
+        <div class="container">
+            <h2 class="section-title fade-in">Frequently Asked Questions</h2>
+            <p class="section-subtitle fade-in stagger-delay-1">Find quick answers to common questions about contacting us</p>
+            
+            <div class="faq-container">
+                <div class="faq-item fade-in">
+                    <div class="faq-question">
+                        <h4>What's the best way to contact PrimeRealty for immediate assistance?</h4>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>For immediate assistance, we recommend calling our main office at (555) 123-4567 during business hours (Mon-Fri 8AM-7PM, Sat 9AM-5PM). Our team is available to answer your questions and connect you with the right specialist. For non-urgent matters, you can email info@primerealty.com or use our contact forms above.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in stagger-delay-1">
+                    <div class="faq-question">
+                        <h4>How quickly can I expect a response to my inquiry?</h4>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We strive to respond to all inquiries within 24 hours during business days. Phone calls are answered immediately during business hours. Email inquiries typically receive a response within 4-6 hours. For valuation requests, our experts will contact you within 48 hours to schedule an assessment. Appointment requests are confirmed within 2 hours of submission.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in stagger-delay-2">
+                    <div class="faq-question">
+                        <h4>Do I need to schedule an appointment to visit your office?</h4>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>While appointments are recommended to ensure you receive dedicated attention from our specialists, walk-ins are welcome during business hours. We recommend calling ahead if you need to meet with a specific agent or require specialized services. For complex matters like investment consultations or legal discussions, appointments are required to ensure adequate preparation time.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in stagger-delay-3">
+                    <div class="faq-question">
+                        <h4>What information should I prepare before contacting you about selling my property?</h4>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>To help us provide the best assistance, please have the following information ready: property address, square footage, number of bedrooms/bathrooms, recent renovations or upgrades, approximate age of the property, current mortgage information (if any), and any special features. If available, recent property photos and tax assessment documents can also be helpful for initial consultations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container cta-content">
+            <h2 class="cta-title fade-in">Ready to Start Your Real Estate Journey?</h2>
+            <p class="cta-text fade-in stagger-delay-1">Contact us today and let our experts guide you through every step of the process.</p>
+            
+            <div class="cta-buttons">
+                <a href="tel:+15551234567" class="cta-button fade-in stagger-delay-2">
+                    <i class="fas fa-phone"></i> Call Now: (555) 123-4567
+                </a>
+                <a href="#contactForm" class="cta-button cta-button-secondary fade-in stagger-delay-3" onclick="switchTab('general')">
+                    <i class="fas fa-envelope"></i> Send Us a Message
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>PrimeRealty</h3>
+                    <p>Your trusted partner for all real estate needs. Contact us today for expert guidance and exceptional service.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Contact Methods</h4>
+                    <ul>
+                        <li><a href="tel:+15551234567"><i class="fas fa-phone"></i> (555) 123-4567</a></li>
+                        <li><a href="mailto:info@primerealty.com"><i class="fas fa-envelope"></i> info@primerealty.com</a></li>
+                        <li><a href="#contactForm" onclick="switchTab('general')"><i class="fas fa-comment"></i> Contact Form</a></li>
+                        <li><a href="#offices"><i class="fas fa-map-marker-alt"></i> Visit Our Offices</a></li>
+                        <li><a href="#contactForm" onclick="switchTab('appointment')"><i class="fas fa-calendar"></i> Book Appointment</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="properties.html">Properties</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="agents.html">Find an Agent</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Office Locations</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> New York: (555) 123-4567</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Miami: (555) 123-4568</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Los Angeles: (555) 123-4569</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Chicago: (555) 123-4570</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Boston: (555) 123-4571</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 PrimeRealty. All rights reserved. | <a href="privacy.html" style="color: rgba(255,255,255,0.7);">Privacy Policy</a> | <a href="terms.html" style="color: rgba(255,255,255,0.7);">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <script>
+        // Office Data
+        const offices = [
+            {
+                id: 'new-york',
+                name: 'New York Headquarters',
+                address: '123 Real Estate Ave, New York, NY 10001',
+                phone: '(555) 123-4567',
+                email: 'nyc@primerealty.com',
+                coords: [40.7128, -74.0060],
+                hours: {
+                    weekdays: '8:00 AM - 7:00 PM',
+                    saturday: '9:00 AM - 5:00 PM',
+                    sunday: 'By Appointment Only'
+                }
+            },
+            {
+                id: 'miami',
+                name: 'Miami Office',
+                address: '456 Ocean Drive, Miami, FL 33131',
+                phone: '(555) 123-4568',
+                email: 'miami@primerealty.com',
+                coords: [25.7617, -80.1918],
+                hours: {
+                    weekdays: '9:00 AM - 6:00 PM',
+                    saturday: '10:00 AM - 4:00 PM',
+                    sunday: 'Closed'
+                }
+            },
+            {
+                id: 'los-angeles',
+                name: 'Los Angeles Office',
+                address: '789 Sunset Blvd, Los Angeles, CA 90069',
+                phone: '(555) 123-4569',
+                email: 'la@primerealty.com',
+                coords: [34.0522, -118.2437],
+                hours: {
+                    weekdays: '8:30 AM - 6:30 PM',
+                    saturday: '9:00 AM - 3:00 PM',
+                    sunday: 'Closed'
+                }
+            },
+            {
+                id: 'chicago',
+                name: 'Chicago Office',
+                address: '101 Michigan Ave, Chicago, IL 60601',
+                phone: '(555) 123-4570',
+                email: 'chicago@primerealty.com',
+                coords: [41.8781, -87.6298],
+                hours: {
+                    weekdays: '8:00 AM - 6:00 PM',
+                    saturday: '9:00 AM - 2:00 PM',
+                    sunday: 'Closed'
+                }
+            },
+            {
+                id: 'boston',
+                name: 'Boston Office',
+                address: '202 Beacon Street, Boston, MA 02116',
+                phone: '(555) 123-4571',
+                email: 'boston@primerealty.com',
+                coords: [42.3601, -71.0589],
+                hours: {
+                    weekdays: '8:00 AM - 6:00 PM',
+                    saturday: '9:00 AM - 1:00 PM',
+                    sunday: 'Closed'
+                }
+            }
+        ];
+
+        // DOM Elements
+        const formTabs = document.querySelectorAll('.form-tab');
+        const formContents = document.querySelectorAll('.form-content');
+        const officeSelect = document.getElementById('officeSelect');
+        const getDirectionsBtn = document.getElementById('getDirections');
+        const faqItems = document.querySelectorAll('.faq-item');
+        const calendarGrid = document.getElementById('calendarGrid');
+        const calendarTitle = document.getElementById('calendarTitle');
+        const prevMonthBtn = document.getElementById('prevMonth');
+        const nextMonthBtn = document.getElementById('nextMonth');
+        const timeSlotsContainer = document.getElementById('timeSlotsContainer');
+        const timeSlots = document.getElementById('timeSlots');
+        
+        // Calendar State
+        let currentDate = new Date();
+        let selectedDate = null;
+        let selectedTime = null;
+        let map = null;
+        let markers = [];
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            mobileMenuBtn.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                mobileMenuBtn.innerHTML = navMenu.classList.contains('active') ? 
+                    '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+            });
+            
+            // Close menu when clicking on a link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                });
+            });
+
+            // Set up form tabs
+            setupFormTabs();
+            
+            // Initialize map
+            initMap();
+            
+            // Set up office select
+            setupOfficeSelect();
+            
+            // Set up FAQ accordion
+            setupFAQAccordion();
+            
+            // Set up calendar
+            setupCalendar();
+            
+            // Set up form validation
+            setupFormValidation();
+            
+            // Set up scroll animations
+            setupScrollAnimations();
+        });
+
+        // Set up form tabs
+        function setupFormTabs() {
+            formTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    
+                    // Update active tab
+                    formTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show corresponding content
+                    formContents.forEach(content => {
+                        content.classList.remove('active');
+                        if (content.id === tabId + 'Form') {
+                            content.classList.add('active');
+                        }
+                    });
+                });
+            });
+        }
+
+        // Switch to specific tab
+        function switchTab(tabId) {
+            formTabs.forEach(tab => {
+                if (tab.getAttribute('data-tab') === tabId) {
+                    tab.click();
+                }
+            });
+            
+            // Smooth scroll to form section
+            const formSection = document.getElementById('contactForm');
+            if (formSection) {
+                window.scrollTo({
+                    top: formSection.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // Initialize map
+        function initMap() {
+            map = L.map('contactMap').setView([40.7128, -74.0060], 13);
+            
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+            
+            // Add markers for each office
+            offices.forEach(office => {
+                const marker = L.marker(office.coords)
+                    .addTo(map)
+                    .bindPopup(`
+                        <div style="padding: 10px;">
+                            <h3 style="margin: 0 0 10px;">${office.name}</h3>
+                            <p style="margin: 5px 0;"><strong>Address:</strong> ${office.address}</p>
+                            <p style="margin: 5px 0;"><strong>Phone:</strong> ${office.phone}</p>
+                            <p style="margin: 5px 0;"><strong>Email:</strong> ${office.email}</p>
+                        </div>
+                    `);
+                
+                markers.push({ id: office.id, marker });
+            });
+        }
+
+        // Set up office select
+        function setupOfficeSelect() {
+            officeSelect.addEventListener('change', function() {
+                const officeId = this.value;
+                const office = offices.find(o => o.id === officeId);
+                
+                if (office) {
+                    // Fly to the selected office
+                    map.flyTo(office.coords, 15);
+                    
+                    // Open the marker popup
+                    const markerObj = markers.find(m => m.id === officeId);
+                    if (markerObj) {
+                        markerObj.marker.openPopup();
+                    }
+                }
+            });
+            
+            getDirectionsBtn.addEventListener('click', function() {
+                const officeId = officeSelect.value;
+                const office = offices.find(o => o.id === officeId);
+                
+                if (office) {
+                    // Open directions in Google Maps
+                    const address = encodeURIComponent(office.address);
+                    window.open(`https://www.google.com/maps/dir/?api=1&destination=${address}`, '_blank');
+                }
+            });
+        }
+
+        // Set up FAQ accordion
+        function setupFAQAccordion() {
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                const toggle = item.querySelector('.faq-toggle');
+                
+                question.addEventListener('click', function() {
+                    // Close all other items
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item && otherItem.classList.contains('active')) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle current item
+                    item.classList.toggle('active');
+                });
+                
+                toggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    item.classList.toggle('active');
+                });
+            });
+        }
+
+        // Set up calendar
+        function setupCalendar() {
+            // Generate calendar for current month
+            generateCalendar(currentDate);
+            
+            // Set up navigation
+            prevMonthBtn.addEventListener('click', function() {
+                currentDate.setMonth(currentDate.getMonth() - 1);
+                generateCalendar(currentDate);
+                resetTimeSelection();
+            });
+            
+            nextMonthBtn.addEventListener('click', function() {
+                currentDate.setMonth(currentDate.getMonth() + 1);
+                generateCalendar(currentDate);
+                resetTimeSelection();
+            });
+        }
+
+        // Generate calendar for given month
+        function generateCalendar(date) {
+            const year = date.getFullYear();
+            const month = date.getMonth();
+            
+            // Update calendar title
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                               'July', 'August', 'September', 'October', 'November', 'December'];
+            calendarTitle.textContent = `${monthNames[month]} ${year}`;
+            
+            // Clear previous calendar
+            calendarGrid.innerHTML = '';
+            
+            // Add day headers
+            const dayHeaders = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            dayHeaders.forEach(day => {
+                const dayEl = document.createElement('div');
+                dayEl.className = 'calendar-day-header';
+                dayEl.textContent = day;
+                calendarGrid.appendChild(dayEl);
+            });
+            
+            // Get first day of month
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const daysInMonth = lastDay.getDate();
+            
+            // Get day of week for first day (0 = Sunday, 6 = Saturday)
+            const firstDayIndex = firstDay.getDay();
+            
+            // Add empty cells for days before first day of month
+            for (let i = 0; i < firstDayIndex; i++) {
+                const emptyDay = document.createElement('div');
+                emptyDay.className = 'calendar-day disabled';
+                calendarGrid.appendChild(emptyDay);
+            }
+            
+            // Add days of month
+            const today = new Date();
+            const todayStr = today.toDateString();
+            
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayEl = document.createElement('div');
+                dayEl.className = 'calendar-day';
+                dayEl.textContent = day;
+                
+                const dateStr = new Date(year, month, day).toDateString();
+                
+                // Mark today
+                if (dateStr === todayStr) {
+                    dayEl.classList.add('today');
+                }
+                
+                // Mark selected date
+                if (selectedDate && new Date(selectedDate).toDateString() === dateStr) {
+                    dayEl.classList.add('selected');
+                }
+                
+                // Disable past dates
+                if (new Date(year, month, day) < today.setHours(0, 0, 0, 0)) {
+                    dayEl.classList.add('disabled');
+                } else {
+                    dayEl.addEventListener('click', function() {
+                        selectDate(year, month, day);
+                    });
+                }
+                
+                calendarGrid.appendChild(dayEl);
+            }
+        }
+
+        // Select date
+        function selectDate(year, month, day) {
+            selectedDate = new Date(year, month, day);
+            
+            // Update UI
+            document.querySelectorAll('.calendar-day').forEach(dayEl => {
+                dayEl.classList.remove('selected');
+            });
+            
+            event.target.classList.add('selected');
+            
+            // Update hidden input
+            document.getElementById('selectedDate').value = selectedDate.toISOString().split('T')[0];
+            
+            // Clear time error
+            document.getElementById('dateError').classList.remove('show');
+            
+            // Show time slots
+            timeSlotsContainer.style.display = 'block';
+            
+            // Generate time slots
+            generateTimeSlots();
+        }
+
+        // Generate time slots for selected date
+        function generateTimeSlots() {
+            // Clear previous time slots
+            timeSlots.innerHTML = '';
+            
+            // Generate time slots (9 AM to 5 PM, every hour)
+            const timeSlotsArray = [
+                '09:00 AM', '10:00 AM', '11:00 AM', '12:00 PM',
+                '01:00 PM', '02:00 PM', '03:00 PM', '04:00 PM'
+            ];
+            
+            // Randomly book some slots for demo purposes
+            const bookedSlots = [1, 4]; // Indices of booked slots
+            
+            timeSlotsArray.forEach((time, index) => {
+                const timeSlot = document.createElement('div');
+                timeSlot.className = 'time-slot';
+                timeSlot.textContent = time;
+                
+                if (bookedSlots.includes(index)) {
+                    timeSlot.classList.add('booked');
+                } else {
+                    timeSlot.addEventListener('click', function() {
+                        selectTime(time);
+                    });
+                    
+                    // Mark as selected if previously selected
+                    if (selectedTime === time) {
+                        timeSlot.classList.add('selected');
+                    }
+                }
+                
+                timeSlots.appendChild(timeSlot);
+            });
+        }
+
+        // Select time slot
+        function selectTime(time) {
+            selectedTime = time;
+            
+            // Update UI
+            document.querySelectorAll('.time-slot:not(.booked)').forEach(slot => {
+                slot.classList.remove('selected');
+            });
+            
+            event.target.classList.add('selected');
+            
+            // Update hidden input
+            document.getElementById('selectedTime').value = time;
+            
+            // Clear time error
+            document.getElementById('timeError').classList.remove('show');
+        }
+
+        // Reset time selection
+        function resetTimeSelection() {
+            selectedDate = null;
+            selectedTime = null;
+            timeSlotsContainer.style.display = 'none';
+            document.getElementById('selectedDate').value = '';
+            document.getElementById('selectedTime').value = '';
+        }
+
+        // Set up form validation
+        function setupFormValidation() {
+            // General Inquiry Form
+            const generalForm = document.getElementById('generalInquiryForm');
+            generalForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                if (validateForm(this)) {
+                    showLoading('general');
+                    
+                    // Simulate form submission
+                    setTimeout(() => {
+                        hideLoading('general');
+                        showSuccess('general');
+                        this.reset();
+                    }, 2000);
+                }
+            });
+            
+            // Valuation Request Form
+            const valuationForm = document.getElementById('valuationRequestForm');
+            valuationForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                if (validateForm(this)) {
+                    showLoading('valuation');
+                    
+                    // Simulate form submission
+                    setTimeout(() => {
+                        hideLoading('valuation');
+                        showSuccess('valuation');
+                        this.reset();
+                    }, 2000);
+                }
+            });
+            
+            // Appointment Booking Form
+            const appointmentForm = document.getElementById('appointmentBookingForm');
+            appointmentForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Validate date and time
+                const dateError = !document.getElementById('selectedDate').value;
+                const timeError = !document.getElementById('selectedTime').value;
+                
+                if (dateError) {
+                    document.getElementById('dateError').classList.add('show');
+                } else {
+                    document.getElementById('dateError').classList.remove('show');
+                }
+                
+                if (timeError) {
+                    document.getElementById('timeError').classList.add('show');
+                } else {
+                    document.getElementById('timeError').classList.remove('show');
+                }
+                
+                if (validateForm(this) && !dateError && !timeError) {
+                    showLoading('appointment');
+                    
+                    // Simulate form submission
+                    setTimeout(() => {
+                        hideLoading('appointment');
+                        showSuccess('appointment');
+                        this.reset();
+                        resetTimeSelection();
+                    }, 2000);
+                }
+            });
+            
+            // Career Inquiry Form
+            const careerForm = document.getElementById('careerInquiryForm');
+            careerForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                if (validateForm(this)) {
+                    showLoading('career');
+                    
+                    // Simulate form submission
+                    setTimeout(() => {
+                        hideLoading('career');
+                        showSuccess('career');
+                        this.reset();
+                    }, 2000);
+                }
+            });
+        }
+
+        // Validate form
+        function validateForm(form) {
+            let isValid = true;
+            const requiredInputs = form.querySelectorAll('[required]');
+            
+            // Clear previous errors
+            form.querySelectorAll('.error-message').forEach(error => {
+                error.classList.remove('show');
+            });
+            
+            form.querySelectorAll('.form-input, .form-select, .form-textarea').forEach(input => {
+                input.classList.remove('error');
+            });
+            
+            // Validate required fields
+            requiredInputs.forEach(input => {
+                if (!input.value.trim()) {
+                    isValid = false;
+                    input.classList.add('error');
+                    
+                    // Show error message
+                    const errorId = input.name + 'Error';
+                    const errorEl = document.getElementById(errorId);
+                    if (errorEl) {
+                        errorEl.classList.add('show');
+                    }
+                }
+                
+                // Validate email format
+                if (input.type === 'email' && input.value) {
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailRegex.test(input.value)) {
+                        isValid = false;
+                        input.classList.add('error');
+                        
+                        const errorId = input.name + 'Error';
+                        const errorEl = document.getElementById(errorId);
+                        if (errorEl) {
+                            errorEl.textContent = 'Please enter a valid email address';
+                            errorEl.classList.add('show');
+                        }
+                    }
+                }
+            });
+            
+            return isValid;
+        }
+
+        // Show loading state
+        function showLoading(formType) {
+            const submitBtn = document.getElementById(formType + 'Submit');
+            const submitText = document.getElementById(formType + 'SubmitText');
+            const spinner = document.getElementById(formType + 'Spinner');
+            
+            submitBtn.disabled = true;
+            submitText.style.display = 'none';
+            spinner.style.display = 'inline-block';
+        }
+
+        // Hide loading state
+        function hideLoading(formType) {
+            const submitBtn = document.getElementById(formType + 'Submit');
+            const submitText = document.getElementById(formType + 'SubmitText');
+            const spinner = document.getElementById(formType + 'Spinner');
+            
+            submitBtn.disabled = false;
+            submitText.style.display = 'inline';
+            spinner.style.display = 'none';
+        }
+
+        // Show success message
+        function showSuccess(formType) {
+            const successMsg = document.getElementById(formType + 'Success');
+            successMsg.classList.add('show');
+            
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                successMsg.classList.remove('show');
+            }, 5000);
+        }
+
+        // Set up scroll animations
+        function setupScrollAnimations() {
+            const animatedElements = document.querySelectorAll('.fade-in');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            animatedElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Sticky header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.boxShadow = '0 2px 15px rgba(0, 0, 0, 0.08)';
+            }
+        });
+    </script>
+</body>
+</html>
