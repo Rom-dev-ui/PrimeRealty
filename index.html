@@ -503,21 +503,29 @@
                 <li class="nav-item"><a href="agents.html" class="nav-link">Agents</a></li>
                 <li class="nav-item"><a href="about.html" class="nav-link">About Us</a></li>
                 <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                <li class="nav-item"><a href="valuation-form.html" class="cta-button">Free Valuation</a></li>
             </ul>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="hero">
-        <div class="container hero-content">
-            <h1 class="hero-title">Find Your Dream Property With Ease</h1>
-            <p class="hero-subtitle">Discover the perfect home, investment property, or commercial space with our comprehensive real estate services.</p>
-            
+     <!-- Hero Section -->
+<section class="hero">
+    <div class="container hero-content">
+        <h1 class="hero-title">Find Your Dream Property With Ease</h1>
+        <p class="hero-subtitle">Discover the perfect home, investment property, or commercial space with our comprehensive real estate services.</p>
+        
+        <!-- Add form wrapper with action/method -->
+        <form action="properties.html" method="GET" class="search-form">
             <div class="search-bar">
-                <input type="text" class="search-input" placeholder="Enter location, property type, or keyword...">
-                <button class="search-btn">Search</button>
+                <!-- Add name attribute for query parameter -->
+                <input type="text" class="search-input" name="q" placeholder="Enter location, property type, or keyword..." required>
+                <!-- Change to submit button -->
+                <button type="submit" class="search-btn">Search</button>
             </div>
-        </div>
+        </form>
+    </div>
+</section>
     </section>
 
     <!-- Services Section -->
@@ -557,7 +565,7 @@
                     <div class="service-content">
                         <h3 class="service-title">Development & Project Services</h3>
                         <p class="service-desc">Site selection, due diligence, entitlement acceleration, project management.</p>
-                        <a href="#" class="service-link">Learn more <i class="fas fa-arrow-right"></i></a>
+                        <a href="services.html#development" class="btn">Development & Project Services</a>
                     </div>
                 </div>
                 
@@ -568,7 +576,7 @@
                     <div class="service-content">
                         <h3 class="service-title">Investment & Asset Management</h3>
                         <p class="service-desc">Acquisition evaluation, disposition strategy, asset optimization, execution monitoring.</p>
-                        <a href="services.html" class="service-link">Learn more <i class="fas fa-arrow-right"></i></a>
+                        <a href="services.html#investment" class="btn">Investment & Asset Management</a>
                     </div>
                 </div>
             </div>
@@ -649,7 +657,7 @@
         <div class="container">
             <h2 class="evaluation-title">Professional Property Evaluation</h2>
             <p class="evaluation-desc">Get accurate property valuations, feasibility studies, and investment analysis from our team of experts. Make informed decisions with our comprehensive evaluation services.</p>
-            <a href="#" class="btn">Request Evaluation</a>
+            <a href="valuation-form.html" class="btn">Request Evaluation</a>
         </div>
     </section>
 
