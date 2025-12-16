@@ -183,6 +183,32 @@
         .search-btn:hover {
             background: var(--primary-dark);
         }
+        /* Add some CSS for filtering */
+.property-card {
+    transition: opacity 0.3s ease;
+}
+
+.no-results {
+    text-align: center;
+    padding: 2rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin-top: 2rem;
+}
+
+.clear-btn {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+.clear-btn:hover {
+    background: #0056b3;
+}
         
         /* Services Section */
         .section {
@@ -679,11 +705,11 @@
                 <div class="footer-links">
                     <h4>Services</h4>
                     <ul>
-                        <li><a href="#">Advisory & Brokerage</a></li>
-                        <li><a href="#">Valuation & Evaluation</a></li>
-                        <li><a href="#">Development & Project Services</a></li>
-                        <li><a href="#">Investment & Asset Management</a></li>
-                        <li><a href="#">Specialized Services</a></li>
+                        <li><a href="services.html#brokerage">Advisory & Brokerage</a></li>
+                        <li><a href="services.html#evaluation">Valuation & Evaluation</a></li>
+                        <li><a href="services.html#development">Development & Project Services</a></li>
+                        <li><a href="services.html#investment">Investment & Asset Management</a></li>
+                        <li><a href="services.html#specilized">Specialized Services</a></li>
                     </ul>
                 </div>
                 
@@ -732,6 +758,93 @@
                 mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
             });
         });
+        document.addEventListener('DOMContentLoaded', function() {
+    const searchBtn = document.getElementById('searchFilterBtn');
+    const searchInput = document.getElementById('propertySearchInput');
+    const propertyCards = document.querySelectorAll('.property-card');
+    
+    // Search button click event
+    searchBtn.addEventListener('click', filterProperties);
+    
+    // Enter key event
+    searchInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            filterProperties();
+        }
+    });
+    
+    function filterProperties() {
+        const searchTerm = searchInput.value.toLowerCase().trim();
+        
+        if (!searchTerm) {
+            // If search is empty, show all properties
+            propertyCards.forEach(card => {
+                card.style.display = 'block';
+            });
+            return;
+        }
+        
+        // Filter properties
+        propertyCards.forEach(card => {
+            const location = card.getAttribute('data-location').toLowerCase();
+            const type = card.getAttribute('data-type').toLowerCase();
+            const keywords = card.getAttribute('data-keywords').toLowerCase();
+            const title = card.querySelector('h3').textContent.toLowerCase();
+            const price = card.getAttribute('data-price');
+            
+            // Check if search term matches any property attribute
+            const matches = location.includes(searchTerm) ||
+                           type.includes(searchTerm) ||
+                           keywords.includes(searchTerm) ||
+                           title.includes(searchTerm) ||
+                           (searchTerm.includes('$') && price.includes(searchTerm.replace('$', '').replace(',', '')));
+            
+            // Show or hide property
+            card.style.display = matches ? 'block' : 'none';
+        });
+        
+        // Show message if no results
+        const visibleProperties = Array.from(propertyCards).filter(card => 
+            card.style.display !== 'none'
+        );
+        
+        if (visibleProperties.length === 0) {
+            showNoResultsMessage(searchTerm);
+        } else {
+            removeNoResultsMessage();
+        }
+    }
+    
+    function showNoResultsMessage(searchTerm) {
+        // Remove existing message if any
+        removeNoResultsMessage();
+        
+        // Create message
+        const message = document.createElement('div');
+        message.className = 'no-results';
+        message.innerHTML = `
+            <p>No properties found for "<strong>${searchTerm}</strong>"</p>
+            <button id="clearSearch" class="clear-btn">Clear Search</button>
+        `;
+        
+        // Insert message after properties grid
+        const grid = document.getElementById('propertiesGrid');
+        grid.parentNode.insertBefore(message, grid.nextSibling);
+        
+        // Clear search button
+        document.getElementById('clearSearch').addEventListener('click', function() {
+            searchInput.value = '';
+            filterProperties();
+        });
+    }
+    
+    function removeNoResultsMessage() {
+        const existingMsg = document.querySelector('.no-results');
+        if (existingMsg) {
+            existingMsg.remove();
+        }
+    }
+});
     </script>
 </body>
 </html>
